@@ -1,10 +1,6 @@
-import Usuario from "../model/Usuario.js";
-
-class UsuarioController {
+class CoursesController {
   async store(req, res) {
-    const nombre = req.body.nombre;
-    const nuevo=await Usuario.create({nombre});
-    return res.json(nuevo);
+    return res.send("Courses Funcionando");
   }
 
   async index(req, res) {
@@ -16,8 +12,7 @@ class UsuarioController {
   }
 
   async show(req, res) {
-    const usuarios = await Usuario.findAll();
-    return res.json(usuarios);
+    return res.json();
   }
 
   async edit(req, res) {
@@ -45,4 +40,4 @@ class UsuarioController {
   }
 }
 
-export default new UsuarioController();
+export default new CoursesController();

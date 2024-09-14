@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import UsuarioController from '../controllers/UsuarioController.js';
+import UsersController from '../controllers/UsersController.js';
 
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
 
-const UsuarioRoutes = new Router();
+const UsersRoutes = new Router();
 
 // Add routes
-UsuarioRoutes.get('/', UsuarioController.show);
+UsersRoutes.get('/', UsersController.show);
 // routes.post('/', SessionController.store);
 // routes.put('/', SessionController.store);
 // routes.delete('/', SessionController.store);
 
-export default UsuarioRoutes;
+export default UsersRoutes;

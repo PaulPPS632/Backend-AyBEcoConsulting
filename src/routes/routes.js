@@ -1,7 +1,7 @@
-import CursoRoutes from "./Curso.routes.js";
-import UsuarioRoutes from "./Usuario.routes.js";
+import CoursesRoutes from "./Courses.routes.js";
+import UsersRoutes from "./Users.routes.js";
 
 export const Routes = {
-    CursoRoutes,
-    UsuarioRoutes
+    CoursesRoutes,
+    UsersRoutes
 }
