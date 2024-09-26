@@ -8,6 +8,7 @@ const UsersRoutes = new Router();
 
 // Add routes
 UsersRoutes.get('/', UsersController.show);
+UsersRoutes.post('/create', UsersController.create);
 // routes.post('/', SessionController.store);
 // routes.put('/', SessionController.store);
 // routes.delete('/', SessionController.store);

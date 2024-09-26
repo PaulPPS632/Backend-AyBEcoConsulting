@@ -12,7 +12,36 @@ class UsersController {
   }
 
   async create(req, res) {
-    return res.json();
+    try {
+      const { nombre, document, adress, phone, email, password } = req.body;
+      if (!nombre || !email || !password) {
+        return res.status(400).json({ error: 'Nombre, email y contraseña son obligatorios' });
+      }
+  
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'El formato del email no es válido' });
+      }
+  
+      const existingUser = await Users.findOne({ where: { email } });
+      if (existingUser) {
+        return res.status(400).json({ error: 'El email ya está en uso' });
+      }
+
+      await Users.create({
+        nombre,
+        document,
+        adress,
+        phone,
+        email,
+        password,
+      });
+  
+      return res.status(201).json({ message: 'Usuario creado exitosamente' });
+    } catch (error) {
+      console.error('Error al crear el usuario:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
 
   async show(req, res) {
