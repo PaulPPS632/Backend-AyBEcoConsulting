@@ -1,13 +1,13 @@
-import { Router } from 'express';
-import CoursesController from '../controllers/CoursesController.js';
+const { Router } = require("express");
+const CoursesController = require("../controllers/CoursesController.js");
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
 
-const CoursesRoutes = new Router();
+const CoursesRoutes = Router();
 
 // Add routes
-CoursesRoutes.get('/', CoursesController.store);
+CoursesRoutes.get("/", CoursesController.store);
 // routes.post('/', SessionController.store);
 // routes.put('/', SessionController.store);
 // routes.delete('/', SessionController.store);
-export default CoursesRoutes;
+module.exports = CoursesRoutes;

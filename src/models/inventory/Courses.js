@@ -1,5 +1,4 @@
-import { Model } from "sequelize";
-import { DataTypes } from "sequelize";
+const { Model, DataTypes } = require("sequelize");
 class Courses extends Model {
   static init(sequelize) {
     super.init(
@@ -15,7 +14,7 @@ class Courses extends Model {
         },
       },
       {
-        sequelize,// Opcional: nombre de la tabla en la base de datos
+        sequelize, // Opcional: nombre de la tabla en la base de datos
         timestamps: true, // Opcional: crea los campos createdAt y updatedAt automáticamente
       }
     );
@@ -30,4 +29,4 @@ class Courses extends Model {
   }
 }
 
-export default Courses;
+module.exports = Courses;

@@ -40,4 +40,4 @@ class CoursesController {
   }
 }
 
-export default new CoursesController();
+module.exports = new CoursesController();
