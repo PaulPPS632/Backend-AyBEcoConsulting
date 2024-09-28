@@ -64,7 +64,10 @@ class EntidadController {
         return res.status(400).json({ message: "Se requiere de un apellido" });
       if (!apellido)
         return res.status(400).json({ message: "Se requiere de un apellido" });
-      const entidadExiste = await Entidad.findOne({ where: { documento } });
+      const entidadExiste = await Entidad.findOne({
+        where: { documento },
+        include: Rol,
+      });
       if (entidadExiste) {
         //veficia si esta consulta viene website o dashboard administrativo.
         //si viene de website no tendra un userId que basicamente seria id del usuario auth que genere la consulta desde el dashboard
@@ -74,19 +77,29 @@ class EntidadController {
           entidadExiste.direccion = direccion;
           entidadExiste.telefono = telefono;
           entidadExiste.email = email;
+          entidadExiste.RolId = RolId;
           entidadExiste.password = password;
-          entidadExiste.RolId = 4;
           entidadExiste.verifiedWebsite = true;
 
           entidadExiste.save();
-          return res.status(200).json({ message: "registrado existosamente" });
+          const token = jwt.sign(
+            { id: entidadExiste.id },
+            process.env.SECRET_KEY,
+            {
+              expiresIn: 86400,
+            }
+          );
+          return res.status(200).json({
+            message: "Entidad creada exitosamente",
+            token,
+            rol: entidadExiste.Rol.nombre,
+            usuario: entidadExiste,
+          });
         } else {
           return res.status(400).json({ message: "Entidad ya existe" });
         }
       } else {
         if (!userId) {
-          if (!email)
-            return res.status(400).json({ message: "Se requiere de un email" });
           const entidad = await Entidad.create({
             nombre,
             apellido,
@@ -97,6 +110,9 @@ class EntidadController {
             password,
             verifiedWebsite: true,
             RolId: 4,
+          });
+          const token = jwt.sign({ id: entidad.id }, process.env.SECRET_KEY, {
+            expiresIn: 86400,
           });
           return res
             .status(200)
@@ -117,9 +133,15 @@ class EntidadController {
             RolId: ROL.id,
             TipoEntidadId: id_tipoEntidad,
           });
-          return res
-            .status(200)
-            .json({ message: "Entidad creada exitosamente" });
+          const token = jwt.sign({ id: entidad.id }, process.env.SECRET_KEY, {
+            expiresIn: 86400,
+          });
+          return res.status(200).json({
+            message: "Entidad creada exitosamente",
+            token,
+            rol: ROL.nombre,
+            usuario: entidad,
+          });
         }
       }
     } catch (error) {
@@ -175,7 +197,7 @@ class EntidadController {
       }
       return res
         .status(200)
-        .json({ estado: true, rol: entidad.Rol.nombre, user: entidad });
+        .json({ estado: true, rol: entidad.Rol.nombre, usuario: entidad });
     } catch (error) {
       return res.status(200).json({ error });
     }
@@ -202,9 +224,11 @@ class EntidadController {
             expiresIn: 86400,
           }
         );
-        return res
-          .status(200)
-          .json({ token: token, usuario: EntidadEncontrada });
+        return res.status(200).json({
+          token: token,
+          rol: EntidadEncontrada.Rol.nombre,
+          usuario: EntidadEncontrada,
+        });
       } else {
         return res.status(400).json({ message: resultado });
       }
