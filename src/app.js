@@ -18,9 +18,10 @@ class App {
 
   routes() {
     //this.server.use(routes);
-    this.server.use("/auth", Routes.AuthRouter);
-    this.server.use("/curso", Routes.CoursesRoutes);
-    this.server.use("/usuario", Routes.EntidadRoutes);
+    this.server.use("/api/auth", Routes.AuthRouter);
+    this.server.use("/api/cursos", Routes.CoursesRoutes);
+    this.server.use("/api/usuario", Routes.EntidadRoutes);
+    this.server.use("/api/categorias", Routes.CategoriasRoutes);
   }
 }
 module.exports = new App().server;

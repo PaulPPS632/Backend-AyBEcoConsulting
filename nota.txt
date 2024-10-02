@@ -1,0 +1,12 @@
+Columns:
+	id	char(36) PK
+	nombre	varchar(255)
+	descripcion	text
+	precio	float
+	duracion	int
+	nivel	enum('basico','intermedio','avanzado')
+	createdAt	datetime
+	updatedAt	datetime
+	EntidadAutorId	char(36)
+	EntidadCreadorId	char(36)
+	ImagenPortadaId	char(36)

@@ -76,7 +76,25 @@ class Entidad extends Model {
       },
       targetKey: "id",
     });
-
+    // Relación uno a muchos con Courses
+    this.hasMany(models.Courses, {
+      foreignKey: "EntidadAutorId",
+      as: "cursosAutorizados",
+      // No es necesario especificar 'type' aquí
+    });
+    models.Courses.belongsTo(this, {
+      foreignKey: "EntidadAutorId",
+      as: "autor",
+    });
+    this.hasMany(models.Courses, {
+      foreignKey: "EntidadCreadorId",
+      as: "cursosCreados",
+      // No es necesario especificar 'type' aquí
+    });
+    models.Courses.belongsTo(this, {
+      foreignKey: "EntidadCreadorId",
+      as: "creador",
+    });
     /** 
     this.hasMany(models.Pedidos, {
       foreignKey: {

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
-
+const Archivo = require("./Archivo");
+const Courses = require("../inventory/Courses");
 class Videos extends Model {
   static init(sequelize) {
     super.init(
@@ -15,20 +16,46 @@ class Videos extends Model {
         topics: {
           type: DataTypes.JSON,
         },
-        url: {
-          type: DataTypes.STRING,
+        antecesor: {
+          type: DataTypes.UUID,
+          allowNull: true, // Puede ser nulo si no hay video anterior
+        },
+        sucesor: {
+          type: DataTypes.UUID,
+          allowNull: true, // Puede ser nulo si no hay video sucesor
         },
       }, // attributes
       {
         sequelize,
+        timestamps: true,
       }
     );
 
     return this;
   }
   static associate(models) {
-    this.belongsToMany(models.Courses, { through: "CuourseVideos" });
-    models.Courses.belongsToMany(this, { through: "CuourseVideos" });
+    // Relación con Archivo
+    this.belongsTo(models.Archivo, {
+      foreignKey: "ArchivoId",
+      as: "archivoRelacionado",
+    });
+
+    // Relación con Courses
+    this.belongsTo(models.Courses, {
+      foreignKey: "CursoId",
+      as: "cursoRelacionado",
+    });
+
+    // Auto-relación para manejar antecesor y sucesor
+    this.hasOne(models.Videos, {
+      foreignKey: "antecesor",
+      as: "videoAnterior",
+    });
+
+    this.hasOne(models.Videos, {
+      foreignKey: "sucesor",
+      as: "videoSiguiente",
+    });
   }
 }
 module.exports = Videos;

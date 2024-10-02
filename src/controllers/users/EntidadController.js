@@ -8,7 +8,36 @@ class EntidadController {
     const entidades = await Entidad.findAll({
       include: { model: Rol, attributes: ["id", "nombre"] },
     });
-    return res.status(200).json(entidades);
+    const resp = entidades.map((entidad) => ({
+      id: entidad.id,
+      nombre: entidad.nombre,
+      apellido: entidad.apellido,
+      documento: entidad.documento,
+      email: entidad.email,
+      RolId: entidad.RolId,
+      Rol: entidad.Rol.nombre,
+    }));
+    return res.status(200).json(resp);
+  }
+  async getAllByRol(req, res) {
+    const { id } = req.params;
+    console.log("id", id);
+    const entidades = await Entidad.findAll({
+      where: { RolId: id },
+      attributes: ["id", "nombre", "apellido", "documento", "email"],
+      include: { model: Rol, attributes: ["id", "nombre"] },
+    });
+    const resp = entidades.map((entidad) => ({
+      id: entidad.id,
+      nombre: entidad.nombre,
+      apellido: entidad.apellido,
+      documento: entidad.documento,
+      email: entidad.email,
+      RolId: entidad.RolId,
+      Rol: entidad.Rol.nombre,
+    }));
+    console.log(resp);
+    return res.status(200).json(resp);
   }
   async getAllDashboard(req, res) {
     const entidades = await Entidad.findAll({
@@ -91,6 +120,7 @@ class EntidadController {
           );
           return res.status(200).json({
             message: "Entidad creada exitosamente",
+            
             token,
             rol: entidadExiste.Rol.nombre,
             usuario: entidadExiste,
@@ -109,7 +139,7 @@ class EntidadController {
             email,
             password,
             verifiedWebsite: true,
-            RolId: 4,
+            RolId,
           });
           const token = jwt.sign({ id: entidad.id }, process.env.SECRET_KEY, {
             expiresIn: 86400,
@@ -180,10 +210,7 @@ class EntidadController {
   async validate(req, res) {
     const { token } = req.body;
     try {
-      const decoded = jwt.verify(
-        token,
-        "jknfcisc32879bnda87213n1328723g43576dvu28632ugi"
-      );
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
       const entidad = await Entidad.findOne({
         where: { id: decoded.id },

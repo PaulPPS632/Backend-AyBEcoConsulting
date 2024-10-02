@@ -6,6 +6,7 @@ const EntidadRoutes = Router();
 
 // Add routes
 EntidadRoutes.get("/", Authorization, EntidadController.getAll);
+EntidadRoutes.get("/rol/:id", Authorization, EntidadController.getAllByRol);
 EntidadRoutes.post("/", Authorization, EntidadController.create);
 EntidadRoutes.get(
   "/dashboard",
