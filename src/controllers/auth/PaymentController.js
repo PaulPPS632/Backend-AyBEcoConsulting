@@ -4,9 +4,8 @@ class PaymentController {
   async externarData(req, res) {
     const body = req.body;
     const username = process.env.PAYMENT_USERNAME;
-    const password = process.env.PAYMENT_PASSWORD_PRODUCCION;
+    const password = process.env.PAYMENT_PASSWORD_TEST;
     const url = process.env.PAYMENT_URL;
-
     const encodeCredentials = (username, password) => {
       const auth = `${username}:${password}`;
       return Buffer.from(auth).toString("base64");
@@ -28,7 +27,7 @@ class PaymentController {
   }
   async validate(req, res) {
     const { clientAnswer, hash } = req.body;
-    const paymentHash = process.env.PAYMENT_HASH_PRODUCCION;
+    const paymentHash = process.env.PAYMENT_HASH_TEST;
     let response = {};
     try {
       const answerJson = JSON.stringify(clientAnswer);
@@ -50,7 +49,7 @@ class PaymentController {
   }
   async ipn(req, res) {
     const { "kr-answer": krAnswer, "kr-hash": krHash } = req.body; // Extraer kr-answer y kr-hash del cuerpo de la solicitud
-    const paymentHash = "uMYYm2KkOCwfCN2iBouF4BGWfHIDkmK6kAG1RLwiw4zgk"; // Obtener el payment_hash de las variables de entorno
+    const paymentHash = process.env.PAYMENT_HASH_TEST; // Obtener el payment_hash de las variables de entorno
 
     let response = {};
 

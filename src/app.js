@@ -22,6 +22,7 @@ class App {
     this.server.use("/api/cursos", Routes.CoursesRoutes);
     this.server.use("/api/usuario", Routes.EntidadRoutes);
     this.server.use("/api/categorias", Routes.CategoriasRoutes);
+    this.server.use("/api/payment", Routes.PaymentRoutes);
   }
 }
 module.exports = new App().server;
