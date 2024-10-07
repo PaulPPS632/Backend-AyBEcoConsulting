@@ -1,12 +1,12 @@
-Columns:
-	id	char(36) PK
-	nombre	varchar(255)
-	descripcion	text
-	precio	float
-	duracion	int
-	nivel	enum('basico','intermedio','avanzado')
-	createdAt	datetime
-	updatedAt	datetime
-	EntidadAutorId	char(36)
-	EntidadCreadorId	char(36)
-	ImagenPortadaId	char(36)
+HOST => 204.93.224.58
+database => aybcongr_capacitaciones
+user => aybcongr_Admin
+password => vq%jpHM8?$v7
+
+----------------------------------
+web:
+admin@gmail.com
+81nOqbWy00x
+
+
+Luis Francisco Herrera Aguilar

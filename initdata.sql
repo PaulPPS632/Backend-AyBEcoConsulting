@@ -1,9 +1,8 @@
-use AyBEcoConsulting;
+use aybcongr_capacitaciones;
 insert into TipoEntidad (id, descripcion, cantdigitos) values(1, "DNI", 8);
 insert into TipoEntidad (id, descripcion, cantdigitos) values(6, "RUC", 11);
 insert into TipoEntidad (id, descripcion, cantdigitos) values(7, "PASAPORTE", 12);
 insert into TipoEntidad (id, descripcion, cantdigitos) values(4, "CARNET EXTRANJERIA", 12);
-
 insert into Rol (id, descripcion, nombre) values (1,'Acceso total','administrador');
 insert into Rol (id, descripcion, nombre) values (2,'Acceso total de creacion de cursos','profesor');
 insert into Rol (id, descripcion, nombre) values (3,'Acceso','encargado');
