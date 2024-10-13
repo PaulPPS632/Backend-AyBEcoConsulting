@@ -1,0 +1,29 @@
+name: CI/CD BACKEND TEST
+
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Clonar el repositorio
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ftp.aybecoconsultingperu.com
+          username: ${{ secrets.FTP_USERNAME_TEST }}
+          password: ${{ secrets.FTP_PASSWORD_TEST }}
+          port: 21
+          local-dir: dist/front-ay-b/browser/
+          server-dir: /
+          dangerous-clean-slate: true
