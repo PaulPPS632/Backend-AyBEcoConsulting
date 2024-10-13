@@ -73,7 +73,7 @@ class CoursesController {
           /\s+/g,
           ""
         );
-        const prefijo = `http://${process.env.DB_HOST}:3000/api/uploads`;
+        const prefijo = process.env.RUTA_ESTATICA;
         const ImagenPortada = await Archivo.create({
           url: `${prefijo}/${filename}`,
           nombre: req.files.fileprincipal[0].originalname,
