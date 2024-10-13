@@ -1,3 +1,5 @@
+const { config } = require("dotenv");
+config();
 const app = require("./app.js");
 const Database = require("./database/database.js");
 async function main() {

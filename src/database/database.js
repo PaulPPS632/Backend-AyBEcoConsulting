@@ -1,5 +1,3 @@
-const { config } = require("dotenv");
-config();
 const Sequelize = require("sequelize");
 const { models } = require("../models/models.js");
 class Database {
