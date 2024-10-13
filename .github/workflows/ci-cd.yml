@@ -24,6 +24,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME_TEST }}
           password: ${{ secrets.FTP_PASSWORD_TEST }}
           port: 21
-          local-dir: dist/front-ay-b/browser/
+          local-dir: .
           server-dir: /
           dangerous-clean-slate: true
