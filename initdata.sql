@@ -1,4 +1,4 @@
-use aybcongr_capacitaciones;
+use ayb;
 insert into TipoEntidad (id, descripcion, cantdigitos) values(1, "DNI", 8);
 insert into TipoEntidad (id, descripcion, cantdigitos) values(6, "RUC", 11);
 insert into TipoEntidad (id, descripcion, cantdigitos) values(7, "PASAPORTE", 12);

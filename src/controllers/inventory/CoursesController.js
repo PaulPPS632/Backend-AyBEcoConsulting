@@ -68,18 +68,7 @@ class CoursesController {
         EntidadCreadorId,
         CategoriaId,
       } = JSON.parse(req.body.curso);
-      console.log({
-        nombre,
-        descripcion,
-        precio,
-        duracion,
-        nivel,
-        EntidadAutorId,
-        EntidadCreadorId,
-        CategoriaId,
-      });
       if (req.files) {
-        console.log(req.files.fileprincipal[0]);
         const filename = req.files.fileprincipal[0].filename.replace(
           /\s+/g,
           ""
@@ -92,7 +81,6 @@ class CoursesController {
           ubicacion: req.files.fileprincipal[0].destination,
           descripcion: "PortadaCurso",
         });
-        console.log("aqui llega");
         const cursocreado = await Courses.create({
           nombre,
           descripcion,
@@ -104,7 +92,6 @@ class CoursesController {
           ImagenPortadaId: ImagenPortada.id,
           CategoriaId,
         });
-        console.log(cursocreado);
         return res.status(200).json({ message: "Curso creado exitosamente" });
       }
     } catch (error) {
@@ -164,7 +151,11 @@ class CoursesController {
   async getCursesHome(req, res) {
     const nuevos = await Courses.findAll({
       include: [
-        { model: Archivo, as: "ImagenPortada", attributes: ["nombre", "url"] },
+        {
+          model: Archivo,
+          as: "ImagenPortada",
+          attributes: ["id", "nombre", "url"],
+        },
         { model: Entidad, as: "autor", attributes: ["id", "nombre"] },
       ],
       attributes: [
@@ -187,7 +178,7 @@ class CoursesController {
             {
               model: Archivo,
               as: "ImagenPortada",
-              attributes: ["nombre", "url"],
+              attributes: ["id", "nombre", "url"],
             },
             { model: Entidad, as: "autor", attributes: ["id", "nombre"] },
           ],

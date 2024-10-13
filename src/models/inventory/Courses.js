@@ -53,12 +53,6 @@ class Courses extends Model {
       targetKey: "id",
     });
     */
-    this.belongsToMany(models.Archivo, {
-      through: models.Videos,
-      foreignKey: "CursoId", // Llave foránea en la tabla Videos que referencia a Curso
-      otherKey: "ArchivoId", // Llave foránea en la tabla Videos que referencia a Archivo
-      as: "archivosAsociados",
-    });
   }
 }
 

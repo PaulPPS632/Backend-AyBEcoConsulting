@@ -10,11 +10,20 @@ class Videos extends Model {
           defaultValue: DataTypes.UUIDV4,
           primaryKey: true,
         },
-        name: {
+        titulo: {
+          type: DataTypes.STRING,
+        },
+        descripcion: {
           type: DataTypes.STRING,
         },
         topics: {
           type: DataTypes.JSON,
+        },
+        url: {
+          type: DataTypes.STRING,
+        },
+        urlminiatura: {
+          type: DataTypes.STRING,
         },
         antecesor: {
           type: DataTypes.UUID,
@@ -23,6 +32,9 @@ class Videos extends Model {
         sucesor: {
           type: DataTypes.UUID,
           allowNull: true, // Puede ser nulo si no hay video sucesor
+        },
+        order: {
+          type: DataTypes.INTEGER,
         },
       }, // attributes
       {
@@ -35,12 +47,9 @@ class Videos extends Model {
   }
   static associate(models) {
     // Relación con Archivo
-    this.belongsTo(models.Archivo, {
-      foreignKey: "ArchivoId",
-      as: "archivoRelacionado",
-    });
 
     // Relación con Courses
+    models.Courses.hasMany(this, { foreignKey: "CursoId" });
     this.belongsTo(models.Courses, {
       foreignKey: "CursoId",
       as: "cursoRelacionado",

@@ -62,12 +62,6 @@ class Archivo extends Model {
 */
 
     //---------------------------------------------------------------------------------------
-    this.belongsToMany(models.Courses, {
-      through: models.Videos,
-      foreignKey: "ArchivoId", // Llave foránea en la tabla Videos que referencia a Archivo
-      otherKey: "CursoId", // Llave foránea en la tabla Videos que referencia a Curso
-      as: "cursosAsociados",
-    });
 
     this.hasMany(models.Courses, {
       foreignKey: "ImagenPortadaId",
