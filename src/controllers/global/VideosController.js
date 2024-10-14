@@ -8,15 +8,12 @@ class VideosController {
       );
       console.log(req.files);
       if (req.files) {
-        var url = `http://${
+        var url = `${
           process.env.RUTA_ESTATICA
         }/${req.files.video[0].filename.replace(/\s+/g, "")}`;
-        var urlminiatura = `http://${
-          process.env.DB_HOST
-        }:3000/api/uploads/${req.files.miniatura[0].filename.replace(
-          /\s+/g,
-          ""
-        )}`;
+        var urlminiatura = `${
+          process.env.RUTA_ESTATICA
+        }/${req.files.miniatura[0].filename.replace(/\s+/g, "")}`;
         /*
         console.log("DATOS PARA CREAR VIDEO: ", {
           titulo,
