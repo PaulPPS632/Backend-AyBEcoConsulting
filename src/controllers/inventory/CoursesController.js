@@ -169,7 +169,9 @@ class CoursesController {
       limit: 10,
       order: [["createdAt", "DESC"]],
     });
+
     const categorias = await Categorias.findAll();
+
     const porCategoria = await Promise.all(
       categorias.map(async (categoria) => {
         const cursos = await Courses.findAll({
